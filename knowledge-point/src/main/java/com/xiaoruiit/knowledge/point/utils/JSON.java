@@ -1,4 +1,4 @@
-package com.xiaoruiit.knowledge.point.aspect.utils;
+package com.xiaoruiit.knowledge.point.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package com.xiaoruiit.knowledge.point.aspect.utils;
+package com.xiaoruiit.knowledge.point.utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
