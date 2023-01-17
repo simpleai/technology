@@ -1,4 +1,4 @@
-package com.xiaoruiit.knowledge.point.aspect.common;
+package com.xiaoruiit.knowledge.point.common;
 
 import java.io.Serializable;
 
