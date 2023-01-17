@@ -11,8 +11,13 @@
     <groupId>com.xiaoruiit</groupId>
     <artifactId>technology</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
     <name>technology</name>
-    <description>technology</description>
+    <modules>
+        <module>knowledge-point</module>
+    </modules>
+
     <properties>
         <java.version>1.8</java.version>
     </properties>

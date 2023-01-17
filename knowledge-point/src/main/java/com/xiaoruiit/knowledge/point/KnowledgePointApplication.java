@@ -1,13 +1,13 @@
-package com.xiaoruiit.technology;
+package com.xiaoruiit.knowledge.point;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TechnologyApplication {
+public class KnowledgePointApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TechnologyApplication.class, args);
+        SpringApplication.run(KnowledgePointApplication.class, args);
     }
 
 }
