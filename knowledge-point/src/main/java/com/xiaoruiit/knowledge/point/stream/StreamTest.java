@@ -5,10 +5,7 @@ import com.xiaoruiit.knowledge.point.utils.JSON;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -80,9 +77,18 @@ public class StreamTest {
     }
 
     /**
-     * 排序 todo
+     * 排序
      * @return
      */
+    public static List<User> sort(){
+        List<User> users = initUsers();
+
+        List<User> sortUsers = users.stream().sorted(Comparator.comparing(
+                v -> v.getUserCode() + v.getAge())
+        ).collect(Collectors.toList());
+
+        return sortUsers;
+    }
 
     /**
      * 转map
