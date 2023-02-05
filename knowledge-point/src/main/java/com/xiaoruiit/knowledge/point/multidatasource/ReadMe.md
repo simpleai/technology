@@ -1,6 +1,52 @@
-server:
-  port: 8080
+# multi Data Source
 
+配置多个数据源，不同文件夹的sql对应不同数据源
+## 包
+```xml
+<mysql-connector.version>8.0.20</mysql-connector.version>
+<mybatis-springboot.version>2.1.3</mybatis-springboot.version>
+<druid.version>1.2.5</druid.version>
+
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter</artifactId>
+    <version>${mybatis-springboot.version}</version>
+</dependency>
+        <!--Mysql数据库驱动-->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+<version>${mysql-connector.version}</version>
+</dependency>
+        <!--集成druid连接池-->
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>druid-spring-boot-starter</artifactId>
+<version>${druid.version}</version>
+</dependency>
+```
+## 配置
+### 排除spirng数据源
+启动类上加
+```java
+@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
+```
+
+### 多个数据源配置config
+```java
+DatasourceConfig，Datasource2MybatisConfig
+```
+
+找不到mapper时，可复制粘贴提示的地址到@MapperScan中
+
+*Mapper.xml位置配置在了yaml文件中
+```yaml
+mybatis:
+  configLocation: classpath:mybatis/mybatis-config.xml
+```
+
+### 数据源地址配置在yaml中
+```yaml
 spring:
   application:
     name: knowledge-point
@@ -98,6 +144,11 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+```
 
-mybatis:
-  configLocation: classpath:mybatis/mybatis-config.xml
+### mybatis全局配置
+```java
+mybatis-config.xml
+```
+## 使用
+MultiDataSourceTest

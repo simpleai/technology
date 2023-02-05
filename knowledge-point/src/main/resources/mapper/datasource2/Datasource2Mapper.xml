@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoruiit.knowledge.point.multidatasource.datasource2.mapper.Datasource2Mapper">
+  <resultMap id="BaseResultMap" type="com.xiaoruiit.knowledge.point.multidatasource.datasource2.domain.Datasource2">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    *
+    from datasource2
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+</mapper>
