@@ -16,6 +16,7 @@
     <name>technology</name>
     <modules>
         <module>knowledge-point</module>
+        <module>common</module>
     </modules>
 
     <properties>
