@@ -1,8 +1,8 @@
 package com.xiaoruiit.knowledge.point.multithread;
 
 import com.google.common.collect.Lists;
-import com.xiaoruiit.knowledge.point.common.Result;
-import com.xiaoruiit.knowledge.point.utils.JSON;
+import com.xiaoruiit.common.domain.Result;
+import com.xiaoruiit.common.utils.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

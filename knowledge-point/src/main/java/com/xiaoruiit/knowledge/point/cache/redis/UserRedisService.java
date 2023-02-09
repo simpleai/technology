@@ -1,6 +1,6 @@
 package com.xiaoruiit.knowledge.point.cache.redis;
 
-import com.xiaoruiit.knowledge.point.common.Result;
+import com.xiaoruiit.common.domain.Result;
 
 import java.util.List;
 

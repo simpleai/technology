@@ -1,6 +1,6 @@
 package com.xiaoruiit.knowledge.point.response;
 
-import com.xiaoruiit.knowledge.point.common.Result;
+import com.xiaoruiit.common.domain.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

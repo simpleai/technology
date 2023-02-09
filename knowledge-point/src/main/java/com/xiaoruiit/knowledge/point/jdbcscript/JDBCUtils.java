@@ -1,4 +1,4 @@
-package com.xiaoruiit.knowledge.point.utils.script;
+package com.xiaoruiit.knowledge.point.utils.jdbcscript;
 
 
 import lombok.extern.slf4j.Slf4j;

@@ -5,7 +5,7 @@ import com.xiaoruiit.knowledge.point.multidatasource.datasource.domain.Datasourc
 import com.xiaoruiit.knowledge.point.multidatasource.datasource.mapper.DatasourceMapper;
 import com.xiaoruiit.knowledge.point.multidatasource.datasource2.domain.Datasource2;
 import com.xiaoruiit.knowledge.point.multidatasource.datasource2.mapper.Datasource2Mapper;
-import com.xiaoruiit.knowledge.point.utils.JSON;
+import com.xiaoruiit.common.utils.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

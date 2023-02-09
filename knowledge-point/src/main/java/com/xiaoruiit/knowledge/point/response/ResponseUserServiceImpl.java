@@ -1,7 +1,7 @@
 package com.xiaoruiit.knowledge.point.response;
 
-import com.xiaoruiit.knowledge.point.common.Result;
-import com.xiaoruiit.knowledge.point.utils.EntityUtils;
+import com.xiaoruiit.common.domain.Result;
+import com.xiaoruiit.common.utils.EntityUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

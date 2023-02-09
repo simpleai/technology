@@ -5,7 +5,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.PutObjectRequest;
-import com.xiaoruiit.knowledge.point.utils.JSON;
+import com.xiaoruiit.common.utils.JSON;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 

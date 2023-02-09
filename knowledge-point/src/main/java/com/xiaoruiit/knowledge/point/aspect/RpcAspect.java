@@ -1,9 +1,9 @@
 package com.xiaoruiit.knowledge.point.aspect;
 
 import com.google.common.base.Throwables;
-import com.xiaoruiit.knowledge.point.common.Result;
-import com.xiaoruiit.knowledge.point.utils.DateUtils;
-import com.xiaoruiit.knowledge.point.utils.JSON;
+import com.xiaoruiit.common.domain.Result;
+import com.xiaoruiit.common.utils.DateUtils;
+import com.xiaoruiit.common.utils.JSON;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;

@@ -1,8 +1,8 @@
 package com.xiaoruiit.knowledge.point.cache.redis;
 
 import com.google.common.collect.Maps;
-import com.xiaoruiit.knowledge.point.common.Result;
-import com.xiaoruiit.knowledge.point.utils.EntityUtils;
+import com.xiaoruiit.common.domain.Result;
+import com.xiaoruiit.common.utils.EntityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundHashOperations;

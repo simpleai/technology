@@ -1,7 +1,7 @@
 
 package com.xiaoruiit.knowledge.point.stream;
 
-import com.xiaoruiit.knowledge.point.utils.JSON;
+import com.xiaoruiit.common.utils.JSON;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 

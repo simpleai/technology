@@ -1,6 +1,6 @@
 package com.xiaoruiit.knowledge.point.valited;
 
-import com.xiaoruiit.knowledge.point.common.Result;
+import com.xiaoruiit.common.domain.Result;
 import com.xiaoruiit.knowledge.point.valited.factory.UserValidFactory;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

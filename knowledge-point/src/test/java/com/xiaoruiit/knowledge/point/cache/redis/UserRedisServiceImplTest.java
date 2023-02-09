@@ -1,7 +1,7 @@
 package com.xiaoruiit.knowledge.point.cache.redis;
 
 import com.xiaoruiit.knowledge.point.KnowledgePointApplication;
-import com.xiaoruiit.knowledge.point.utils.JSON;
+import com.xiaoruiit.common.utils.JSON;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

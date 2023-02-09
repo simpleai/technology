@@ -1,7 +1,7 @@
 package com.xiaoruiit.knowledge.point.cache.caffeine;
 
-import com.xiaoruiit.knowledge.point.common.Result;
-import com.xiaoruiit.knowledge.point.utils.JSON;
+import com.xiaoruiit.common.domain.Result;
+import com.xiaoruiit.common.utils.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
