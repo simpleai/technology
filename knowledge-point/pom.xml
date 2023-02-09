@@ -19,6 +19,7 @@
     </properties>
 
     <dependencies>
+        <!--引入自己的公共模块-->
         <dependency>
             <groupId>com.xiaoruiit</groupId>
             <artifactId>common</artifactId>
