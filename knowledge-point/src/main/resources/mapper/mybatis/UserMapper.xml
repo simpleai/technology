@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoruiit.knowledge.point.mybatis.mapper.UserMapper">
+
+    <resultMap type="com.xiaoruiit.knowledge.point.mybatis.domain.User" id="userMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userCode" column="user_code" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--必须有useGeneratedKeys="true" keyProperty="id"；不能用on duplicate key update，否则只能返回第一个id-->
+    <insert id="batchInsert" useGeneratedKeys="true" keyProperty="id">
+        insert into `t_user`(user_code)
+        values
+        <foreach item="entity" collection="list" separator=",">
+            (#{entity.userCode})
+        </foreach>
+    </insert>
+</mapper>
+
