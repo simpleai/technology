@@ -8,6 +8,7 @@ import com.xiaoruiit.knowledge.point.multidatasource.datasource2.domain.Datasour
 import com.xiaoruiit.knowledge.point.multidatasource.datasource2.mapper.Datasource2Mapper;
 import com.xiaoruiit.knowledge.point.mybatis.domain.User;
 import com.xiaoruiit.knowledge.point.mybatis.mapper.UserMapper;
+import com.xiaoruiit.knowledge.point.mybatis.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -39,6 +40,14 @@ class BatchInsertThenGetIdsSourceTest {
         userMapper.batchInsert(users);
 
         log.warn(JSON.toJSONString(users));
+    }
+
+    @Resource
+    private UserService userService;
+
+    @Test
+    void transactionalTest() {
+        userService.insert();
     }
 
 
