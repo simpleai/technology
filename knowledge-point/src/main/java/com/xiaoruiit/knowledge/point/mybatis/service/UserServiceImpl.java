@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService{
     private UserService2 userService2;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,transactionManager = "dataSourceTransactionManager3")
+    @Transactional(rollbackFor = Exception.class,transactionManager = "dataSourceTransactionManager3")
     // 事务传播默认值：支持当前事务，如果不存在则创建一个新事务
     // 事务失效：多数据源默认事务管理器名称不是transactionManager，且没有指定事务管理器名称
     public int insert() {
