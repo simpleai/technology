@@ -1,4 +1,4 @@
-package com.xiaoruiit.knowledge.point.file;
+package com.xiaoruiit.knowledge.point.file.smms2oss;
 
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSS;
