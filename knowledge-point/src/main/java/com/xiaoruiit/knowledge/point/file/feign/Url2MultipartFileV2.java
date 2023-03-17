@@ -21,22 +21,18 @@ public class Url2MultipartFileV2 {
      * @fileName:文件名
      * @return:返回的文件
      */
-    public static MultipartFile urlToMultipartFile(String url,String fileName) throws Exception {
+    public static MultipartFile urlToMultipartFile(String url,String fileName) throws IOException {
         File file = null;
         MultipartFile multipartFile = null;
-        try {
-            HttpURLConnection httpUrl = (HttpURLConnection) new URL(url).openConnection();
-            httpUrl.connect();
-            file = Url2MultipartFileV2.inputStreamToFile(httpUrl.getInputStream(),fileName);
-            multipartFile = Url2MultipartFileV2.fileToMultipartFile(file);
-            httpUrl.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        HttpURLConnection httpUrl = (HttpURLConnection) new URL(url).openConnection();
+        httpUrl.connect();
+        file = Url2MultipartFileV2.inputStreamToFile(httpUrl.getInputStream(),fileName);
+        multipartFile = Url2MultipartFileV2.fileToMultipartFile(file);
+        httpUrl.disconnect();
         return multipartFile;
     }
 
-    public static File inputStreamToFile(InputStream ins, String name) throws Exception {
+    public static File inputStreamToFile(InputStream ins, String name) throws IOException {
         File file = new File(System.getProperty("java.io.tmpdir") + File.separator + name);
         OutputStream os = new FileOutputStream(file);
         int len = 8192;
@@ -50,24 +46,28 @@ public class Url2MultipartFileV2 {
         return file;
     }
 
-    public static MultipartFile fileToMultipartFile(File file) {
-        DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory(16, null);
+    public static MultipartFile fileToMultipartFile(File file) throws IOException {
+        DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();// 超过10240字节的数据会存到磁盘上
         FileItem item = diskFileItemFactory.createItem(file.getName(), "text/plain", true, file.getName());
+
         int bytesRead = 0;
         byte[] buffer = new byte[8192];
+        FileInputStream fis = new FileInputStream(file);
+        OutputStream os = item.getOutputStream();
         try {
-            FileInputStream fis = new FileInputStream(file);
-            OutputStream os = item.getOutputStream();
             int len = 8192;
             while ((bytesRead = fis.read(buffer, 0, len)) != -1){
                 os.write(buffer, 0, bytesRead);
             }
-            os.close();
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } finally {
+            if (os != null){
+                os.close();
+            }
+            if (fis != null){
+                fis.close();
+            }
         }
-        return (MultipartFile)new CommonsMultipartFile(item);
+        return new CommonsMultipartFile(item);
     }
 
 }

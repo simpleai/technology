@@ -2,11 +2,13 @@ package com.xiaoruiit.knowledge.point.file.feign;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -18,14 +20,40 @@ import java.net.URL;
  */
 public class Url2MultipartFile {
 
+    public static MultipartFile urlToMultipartFile(String fileUrl) throws IOException {
+        URL url = new URL(fileUrl);
+        InputStream inputStream = url.openConnection().getInputStream();
+        FileItem fileItem = new DiskFileItem("file", "application/octet-stream",
+                false, // 非表单字段
+                url.getFile(),
+                -1, // 不存到磁盘。10240 代表超过此值的文件存到磁盘上
+                null);
+        try {
+            OutputStream outputStream = fileItem.getOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+            fileItem.getOutputStream().close();
+        }
+        CommonsMultipartFile multipartFile = new CommonsMultipartFile(fileItem);
+        return multipartFile;
+    }
+
+
     /**
-     * 根据url上传，文件名称从url中取，可能导致报错
+     * 根据url上传，文件名称从url中取，可能导致报错，待优化
      *
      * @param url
      * @return
      * @throws Exception
      */
-    public static MultipartFile getMultipartFileByUrl(String url) throws Exception{
+    public static MultipartFile getMultipartFileByUrl(String url) throws IOException {
         FileItem item = null;
         HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
         conn.setReadTimeout(30000);
@@ -63,8 +91,8 @@ public class Url2MultipartFile {
             OutputStream os = item.getOutputStream();
 
             int bytesRead;
-            byte[] buffer = new byte[1024 * conn.getContentLength()];
-            while ((bytesRead = is.read(buffer, 0, buffer.length)) != -1) {
+            byte[] buffer = new byte[4096];
+            while ((bytesRead = is.read(buffer)) != -1) {
                 os.write(buffer, 0, bytesRead);
             }
             os.close();

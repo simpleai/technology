@@ -39,7 +39,7 @@ public class Business {
             // 下载
             MultipartFile fileItem = null;
             try {
-                fileItem = Url2MultipartFile.getMultipartFileByUrl(url);
+                fileItem = Url2MultipartFile.urlToMultipartFile(url);
             } catch (Exception e) {
                 log.error("上传文件入参:{},error:{}", JSON.toJSONString(urls),e);
                 throw new RuntimeException();
