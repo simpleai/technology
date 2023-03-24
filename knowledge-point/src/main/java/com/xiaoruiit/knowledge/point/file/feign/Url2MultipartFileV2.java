@@ -47,24 +47,16 @@ public class Url2MultipartFileV2 {
     }
 
     public static MultipartFile fileToMultipartFile(File file) throws IOException {
-        DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();// 超过10240字节的数据会存到磁盘上
+        DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory(16, null);// 超过10240字节的数据会存到磁盘上
         FileItem item = diskFileItemFactory.createItem(file.getName(), "text/plain", true, file.getName());
-
         int bytesRead = 0;
         byte[] buffer = new byte[8192];
-        FileInputStream fis = new FileInputStream(file);
-        OutputStream os = item.getOutputStream();
-        try {
+        try (FileInputStream fis = new FileInputStream(file);
+             OutputStream os = item.getOutputStream()) {
+
             int len = 8192;
             while ((bytesRead = fis.read(buffer, 0, len)) != -1){
                 os.write(buffer, 0, bytesRead);
-            }
-        } finally {
-            if (os != null){
-                os.close();
-            }
-            if (fis != null){
-                fis.close();
             }
         }
         return new CommonsMultipartFile(item);
