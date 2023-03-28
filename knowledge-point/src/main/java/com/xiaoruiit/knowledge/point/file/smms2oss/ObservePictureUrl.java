@@ -12,14 +12,17 @@ import java.util.regex.Pattern;
  * md中包含本地图片
  */
 @Slf4j
-public class MdContainLoaclPicture {
+public class ObservePictureUrl {
 
     public static String BASE_PATH = "C:\\Users\\LENOVO\\Desktop\\";
+//    public static String OLD_MD_FILE_PATH = BASE_PATH + "smms2oss";// 含有md文件的文件夹地址，会递归向下寻找
     public static String OLD_MD_FILE_PATH = BASE_PATH + "knowledge";// 含有md文件的文件夹地址，会递归向下寻找
 
     public static String PACKAGE_PATH = "\\knowledge-point\\src\\main\\java\\com\\xiaoruiit\\knowledge\\point\\file\\smms2oss\\";
-    public static String PICTURE_SOURCE_PATH = System.getProperty("user.dir") + PACKAGE_PATH + "pictureSource.json";// 图片来源地址集合。  Ctrl+Alt + L 格式化json
-    public static String LOCAL_PICTURE_PATH = System.getProperty("user.dir") + PACKAGE_PATH + "localPicture.json";// 本地图片所在文件地址，之前未上传成功，需手动处理。  Ctrl+Alt + L 格式化json
+    public static String PICTURE_SOURCE_PATH = System.getProperty("user.dir") + PACKAGE_PATH + "pictureSource.json";// 图片来源地址集合写入到当前类的pictureSource.json。  Ctrl+Alt + L 格式化json
+
+    public static String PICTURE_PRE_REGEX = "https://i";// 图片开头规则
+    public static String LOCAL_PICTURE_FILE_PATH = System.getProperty("user.dir") + PACKAGE_PATH + "localPicture.json";// 符合图片开头规则的图片地址写入到当前类的localPicture.json，  Ctrl+Alt + L 格式化json
 
     public static void main(String[] args) throws IOException {
         // 1.获取md文件的路径
@@ -37,6 +40,7 @@ public class MdContainLoaclPicture {
 
         // 4.md文件中的本地图片地址输出到json文件，准备手动上传一次。
         writeLocalPictureToJsonFile(mdPicturePathMap);
+
     }
 
     private static void writepictureSource(Map<String, Set<String>> mdPicturePathMap) {
@@ -45,12 +49,15 @@ public class MdContainLoaclPicture {
         for (String s : mdPicturePathMap.keySet()) {
             Set<String> urls = mdPicturePathMap.get(s);
             for (String url : urls) {
-                pictureSources.add(url.substring(0, 19));
+                if (url.length() > 19) {
+                    pictureSources.add(url.substring(0, 19));
+                } else {
+                    pictureSources.add(url);
+                }
             }
         }
-        writeTxt(pictureSources, PICTURE_SOURCE_PATH);
         log.warn("图片来源:{}", JSON.toJSONString(pictureSources));
-
+        writeTxt(pictureSources, PICTURE_SOURCE_PATH);
     }
 
     /**
@@ -134,8 +141,8 @@ public class MdContainLoaclPicture {
                 Iterator<String> iterator = picturePaths.iterator();
                 while (iterator.hasNext()) {
                     String picturePath = iterator.next();
-                    if (picturePath.startsWith("C:") || picturePath.startsWith("D:")){// 收集本地
-                        log.warn("本地图片：mdPath:{},picturePath:{}",JSON.toJSONString(mdPath),JSON.toJSONString(picturePath));
+                    if (picturePath.startsWith(PICTURE_PRE_REGEX)){// 收集本地
+                        log.warn("图片所在路径和图片地址：mdPath:{},picturePath:{}",JSON.toJSONString(mdPath),JSON.toJSONString(picturePath));
                         // 收集本地
                         localPicthrePaths.add(picturePath);
                     }
@@ -147,7 +154,7 @@ public class MdContainLoaclPicture {
             }
         }
 
-        writeTxt(localMdPicturePathMap, MdContainLoaclPicture.LOCAL_PICTURE_PATH);
+        writeTxt(localMdPicturePathMap, ObservePictureUrl.LOCAL_PICTURE_FILE_PATH);
     }
 
     /**

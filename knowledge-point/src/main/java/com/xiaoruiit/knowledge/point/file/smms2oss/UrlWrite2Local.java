@@ -11,7 +11,7 @@ import java.net.URLConnection;
  * @date 2023/3/27
  */
 @Slf4j
-public class FileTest {
+public class UrlWrite2Local {
     public static String BASE_PATH = "C:\\Users\\LENOVO\\Desktop\\";
     //    public static String OLD_MD_FILE_PATH = BASE_PATH + "knowledge";
     public static String OLD_MD_FILE_PATH = BASE_PATH + "smms2oss";

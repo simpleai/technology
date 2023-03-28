@@ -22,7 +22,7 @@ import org.apache.commons.io.IOUtils;
  * 举例：https://s2.loli.net/2022/03/01/xp9zWlRL6dearOk.png → https://xiaoruiit.oss-cn-beijing.aliyuncs.com/img/xp9zWlRL6dearOk.png
  */
 @Slf4j
-public class OSSUploader {
+public class MdSmms2Oss {
 
     static final String endpoint = "https://oss-cn-beijing.aliyuncs.com";
     static final String endpointEnd = "oss-cn-beijing.aliyuncs.com";
@@ -30,13 +30,14 @@ public class OSSUploader {
     static final String accessKeySecret = "";
     static final String bucketName = "xiaoruiit";// Bucket名称
     static final String baseObjectName = "img/";
+    static OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
 
     public static String BASE_PATH = "C:\\Users\\LENOVO\\Desktop\\";
 //    public static String OLD_MD_FILE_PATH = BASE_PATH + "knowledge";
     public static String OLD_MD_FILE_PATH = BASE_PATH + "smms2oss";
 
-    static final String pattern = "https?://i\\.loli\\.net\\/.*\\.(jpg|jpeg|png|gif|bmp)";
-//    static final String pattern = "https?://s2\\.loli\\.net\\/.*\\.(jpg|jpeg|png|gif|bmp)";
+//    static final String pattern = "https?://i\\.loli\\.net\\/.*\\.(jpg|jpeg|png|gif|bmp)";
+    static final String pattern = "https?://s2\\.loli\\.net\\/.*\\.(jpg|jpeg|png|gif|bmp)";
     static final long sleepTime = 100;// 读取休眠时间，单位：ms
     //
 
@@ -51,6 +52,8 @@ public class OSSUploader {
         for (String mdPath : mdPathList) {
             handleEveryMdFile(mdPath);
         }
+
+        ossClient.shutdown();
 
         log.warn("替换图片个数:{}", numberOfReplacementImages);
     }
@@ -90,17 +93,22 @@ public class OSSUploader {
             String imageUrl = m.group();
             String imgName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
             String objectName = baseObjectName + imgName;
-            OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
-            PutObjectResult putObjectResult = ossClient.putObject(bucketName, objectName, new ByteArrayInputStream(download(imageUrl)));
-            if (putObjectResult.getRequestId() != null){
-                String ossUrl = "https://" + bucketName + "." + endpointEnd + "/" + objectName;
-                content = content.replace(imageUrl, ossUrl);
 
-                numberOfReplacementImages++;// 统计个数
-            } else {
-                throw new RuntimeException("");
+            try {
+                log.info("mdPath:{},imageUrl:{}",mdPath, imageUrl);
+                PutObjectResult putObjectResult = ossClient.putObject(bucketName, objectName, new ByteArrayInputStream(download(imageUrl)));
+                if (putObjectResult.getRequestId() != null){
+                    String ossUrl = "https://" + bucketName + "." + endpointEnd + "/" + objectName;
+                    content = content.replace(imageUrl, ossUrl);
+
+                    numberOfReplacementImages++;// 统计个数
+                } else {
+                    throw new RuntimeException("");
+                }
+            } catch (RuntimeException e){
+                log.error(mdPath + "--" + imageUrl);
+                log.error("error:{}", e);
             }
-            ossClient.shutdown();
         }
 
         if (haveSmms){
