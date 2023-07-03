@@ -26,8 +26,8 @@ public class MdSmms2Oss {
 
     static final String endpoint = "https://oss-cn-beijing.aliyuncs.com";
     static final String endpointEnd = "oss-cn-beijing.aliyuncs.com";
-    static final String accessKeyId = "";
-    static final String accessKeySecret = "";
+    static final String accessKeyId = "";// todo
+    static final String accessKeySecret = "";// todo
     static final String bucketName = "xiaoruiit";// Bucket名称
     static final String baseObjectName = "img/";
     static OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
