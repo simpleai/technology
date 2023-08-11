@@ -1,4 +1,4 @@
-package com.xiaoruiit.knowledge.point.jdk;
+package com.xiaoruiit.knowledge.point.javase.collection;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
