@@ -20,7 +20,7 @@ public class ThreadPoolIoExecutorUtil {
     // CPU密集型
     private int spuCoreSize = Runtime.getRuntime().availableProcessors() + 1;
 
-    private int threadMaxSize = 16 < coreSize ? coreSize : 16;
+    private int threadMaxSize = Math.max(16, coreSize);
 
     @Bean("threadPoolIoExecutor")
     public ThreadPoolExecutor threadPoolExecutor() {
