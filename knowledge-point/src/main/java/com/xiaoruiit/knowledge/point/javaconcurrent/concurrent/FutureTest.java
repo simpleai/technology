@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class FutureTest {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        ArrayBlockingQueue arrayBlockingQueue = new ArrayBlockingQueue(1024);
+        ArrayBlockingQueue arrayBlockingQueue = new ArrayBlockingQueue(16);
 
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4, 4, 5L, TimeUnit.MINUTES, arrayBlockingQueue);
 
