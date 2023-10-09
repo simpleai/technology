@@ -1,6 +1,9 @@
 package com.xiaoruiit.knowledge.point.javaconcurrent.concurrent;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -49,6 +52,29 @@ public class CompleableFutureTest {
         f1.thenRun();// 不支持参数，也不支持返回值
         f1.thenCompose(); // 除了新建一个子流程，最终结果和thenApply相同*/
 
+
+        // 输出三个报价最低值，非只有异步，使用CompletableFuture
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
+        CompletableFuture<Integer> i1 = CompletableFuture.supplyAsync(() -> getPriceByS1(), executorService);
+        CompletableFuture<Integer> i2 = CompletableFuture.supplyAsync(() -> getPriceByS2(), executorService);
+        CompletableFuture<Integer> i3 = CompletableFuture.supplyAsync(() -> getPriceByS3(), executorService);
+        CompletableFuture.allOf(i1, i2, i3).thenRun(() -> {
+            try {
+                System.out.println("result:" + i1.get());
+                System.out.println("result:" + i2.get());
+                System.out.println("result:" + i3.get());
+                Integer min = Integer.MAX_VALUE;
+                for (int i = 0; i < 3; i++) {
+                    min = Integer.min(min,i1.get());
+                }
+                System.out.println("min:" + min);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private static void sleep(int millis) {
@@ -57,5 +83,17 @@ public class CompleableFutureTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static Integer getPriceByS3() {
+        return 3;
+    }
+
+    private static Integer getPriceByS2() {
+        return 2;
+    }
+
+    private static Integer getPriceByS1() {
+        return 1;
     }
 }

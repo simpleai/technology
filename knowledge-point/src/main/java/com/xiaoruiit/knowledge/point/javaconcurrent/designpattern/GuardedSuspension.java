@@ -15,9 +15,9 @@ package com.xiaoruiit.knowledge.point.javaconcurrent.designpattern;
 public class GuardedSuspension {
 
 
-    public Position get(int number){
-
-    }
+//    public Position get(int number){
+//
+//    }
 }
 
 class Position {

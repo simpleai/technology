@@ -25,7 +25,7 @@ public class FutureTest {
 
         System.out.println("烧水壶");
 
-        String string = submit.get();
+        String string = submit.get();// 阻塞获取结果
 
         System.out.println("泡茶");
 
