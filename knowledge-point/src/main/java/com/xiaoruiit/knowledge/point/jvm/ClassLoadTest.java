@@ -22,6 +22,6 @@ public class ClassLoadTest {
         getInstance(false);
     }
 // 观察类加载过程
-//    javac -encoding UTF-8 ClassLoadTest.java
+//    javac -encoding UTF-8 ClassLoadTest.java // 编译
 //    java -verbose:class ClassLoadTest
 }

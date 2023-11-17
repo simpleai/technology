@@ -31,3 +31,7 @@ class Sun extends Parent {
         System.out.println("sun static");
     }
 }
+
+interface FinalTest{
+   // final void method();
+}
