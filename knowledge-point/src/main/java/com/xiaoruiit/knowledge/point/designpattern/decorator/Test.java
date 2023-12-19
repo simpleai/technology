@@ -1,7 +1,5 @@
 package com.xiaoruiit.knowledge.point.designpattern.decorator;
 
-import java.io.InputStream;
-
 /**
  * 装饰器模式 测试类，使用demo
  * @author hanxiaorui
@@ -14,5 +12,8 @@ public class Test {
         inputStreamMy.read();
         inputStreamMy = new CheckInputStreamMy(inputStreamMy);
         inputStreamMy.read();
+
+        String preBlockSpinValue = System.getProperty("XX:PreBlockSpin");
+        System.out.println("XX:PreBlockSpin value: " + preBlockSpinValue);
     }
 }
