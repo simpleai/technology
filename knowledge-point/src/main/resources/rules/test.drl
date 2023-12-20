@@ -1,0 +1,9 @@
+import com.xiaoruiit.knowledge.point.rule.drools.Person
+dialect  "mvel"
+
+rule "age"
+    when
+        $person : Person(age > 18)
+    then
+        System.out.println("年龄大于18岁的人是：" + $person.getName());
+end
