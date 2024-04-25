@@ -6,8 +6,6 @@ package com.xiaoruiit.knowledge.point.transaction;
  */
 public class TransactionHookProcessorTest {
 
-    // todo 数据库
-
     public static void main(String[] args) {
 
         TransactionHookProcessor transactionHookProcessor = new TransactionHookProcessor();
