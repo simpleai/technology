@@ -157,6 +157,12 @@
             <version>3.0.1</version>
         </dependency>
         <!--规则引擎aviator结束-->
+        <!--swagger-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.2</version>
+        </dependency>
 
     </dependencies>
 
