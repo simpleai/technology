@@ -45,6 +45,7 @@ code模式是一棵树
 │  │  │                  │  ├─callerinfo            // 获取调用者信息的相关代码
 │  │  │                  │  └─feignaddheader        // Feign请求时添加自定义HTTP头的实现
 │  │  │                  ├─id                       // 主键生成策略或唯一标识生成相关代码
+│  │  │                  ├─incrementalRecord        // 增量记录
 │  │  │                  ├─javaconcurrent           // Java并发编程相关示例、工具或封装
 │  │  │                  │  ├─base                  // 并发基础知识或基础工具类
 │  │  │                  │  ├─caseananlysis         // 并发问题案例分析与解决方案
