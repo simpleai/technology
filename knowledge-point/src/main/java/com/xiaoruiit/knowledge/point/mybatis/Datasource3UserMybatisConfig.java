@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -43,7 +44,8 @@ public class Datasource3UserMybatisConfig {
 
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setTypeAliasesPackage("com.xiaoruiit.konwledge.point.mybatis.domain/*.class");
-        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/mybatis/*Mapper.xml"));// 创建文件夹不能直接 mapp.user 来创建2个文件夹
+        Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/mybatis/*Mapper.xml");
+        sessionFactory.setMapperLocations(resources);// 创建文件夹不能直接 mapp.user 来创建2个文件夹
         String property = env.getProperty("mybatis.configLocation");
         sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(property));
         return sessionFactory.getObject();

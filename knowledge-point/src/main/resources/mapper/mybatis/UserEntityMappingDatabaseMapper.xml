@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoruiit.knowledge.point.mybatis.mapper.UserEntityMappingDatabaseMapper">
+
+    <resultMap type="com.xiaoruiit.knowledge.point.mybatis.domain.UserEntityMappingDatabase" id="userMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result column="status" property="status" typeHandler="com.xiaoruiit.knowledge.point.mybatis.typehandler.CodeEnumTypeHandler"/>
+        <result column="ext_info" property="extInfo" typeHandler="com.xiaoruiit.knowledge.point.mybatis.typehandler.JsonObjectTypeHandler"/>
+        <result column="role_codes" property="roleCodes" typeHandler="com.xiaoruiit.knowledge.point.mybatis.typehandler.nest.StringSetTypeHandler"/>
+        <result column="address_details" property="addressDetails" typeHandler="com.xiaoruiit.knowledge.point.mybatis.typehandler.nest.AddressDetailListTypeHandler"/>
+    </resultMap>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into `user_entity_mapping_database` (id, status, ext_info, role_codes, address_details)
+        values (
+                #{id},
+                #{status},
+                #{extInfo, typeHandler=com.xiaoruiit.knowledge.point.mybatis.typehandler.JsonObjectTypeHandler},
+                #{roleCodes, typeHandler=com.xiaoruiit.knowledge.point.mybatis.typehandler.nest.StringSetTypeHandler},
+                #{addressDetails, typeHandler=com.xiaoruiit.knowledge.point.mybatis.typehandler.nest.AddressDetailListTypeHandler})
+    </insert>
+
+    <select id="query"  resultMap="userMap" parameterType="com.xiaoruiit.knowledge.point.mybatis.domain.UserEntityMappingDatabase">
+        select *
+        from
+            user_entity_mapping_database
+        <where>
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <!--  json 多对多都包含查询 -->
+        <if test="roleCodes != null and roleCodes.size > 0" >
+            and json_contains(role_codes, #{roleCodes, typeHandler=com.xiaoruiit.knowledge.point.mybatis.typehandler.nest.StringSetTypeHandler})
+        </if>
+        </where>
+        <!-- json 多对多包含任意一个查询 -->
+        <!--<if test="roleCodes != null and roleCodes.size > 0" >
+            and json_overlaps(role_codes, #{roleCodes, typeHandler=com.xiaoruiit.knowledge.point.mybatis.typehandler.nest.StringSetTypeHandler})
+        </if>-->
+    </select>
+
+    <select id="query2" resultMap="userMap" >
+        select *
+        from
+        user_entity_mapping_database
+    </select>
+</mapper>
+

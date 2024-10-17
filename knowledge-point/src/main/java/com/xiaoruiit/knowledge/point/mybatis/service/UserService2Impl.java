@@ -31,7 +31,7 @@ public class UserService2Impl implements UserService2{
         }
         userMapper.batchInsert(users);
 
-        throw new RuntimeException("a");
-
+        //throw new RuntimeException("a");
+        return 1;
     }
 }
