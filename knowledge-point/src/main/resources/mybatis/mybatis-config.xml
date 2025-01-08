@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	
+
 	<settings>
 		<setting name="cacheEnabled"             value="true" />  <!-- 全局映射器启用缓存 -->
 		<setting name="useGeneratedKeys"         value="true" />  <!-- 允许 JDBC 支持自动生成主键 -->
@@ -11,5 +11,17 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<setting name="logImpl"                  value="SLF4J" /> <!-- 指定 MyBatis 所用日志的具体实现 -->
 		<!-- <setting name="mapUnderscoreToCamelCase" value="true"/>  驼峰式命名 -->
 	</settings>
-	
+
+
+	<typeHandlers>
+		<!--枚举相关-->
+		<typeHandler handler="com.xiaoruiit.knowledge.point.mybatis.typehandler.CodeEnumTypeHandler" javaType="com.xiaoruiit.knowledge.point.mybatis.domain.UserEntityMappingDatabase$StatusEnum"/>
+		<!-- 单层对象 -->
+		<typeHandler handler="com.xiaoruiit.knowledge.point.mybatis.typehandler.JsonObjectTypeHandler" javaType="com.xiaoruiit.knowledge.point.mybatis.domain.UserEntityMappingDatabase$ExtInfo"/>
+		<!--嵌套对象-->
+		<typeHandler handler="com.xiaoruiit.knowledge.point.mybatis.typehandler.nest.AddressDetailListTypeHandler"/>
+		<typeHandler handler="com.xiaoruiit.knowledge.point.mybatis.typehandler.nest.StringSetTypeHandler"/>
+
+	</typeHandlers>
+
 </configuration>

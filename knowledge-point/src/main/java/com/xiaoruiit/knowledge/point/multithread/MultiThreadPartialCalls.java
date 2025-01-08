@@ -3,6 +3,7 @@ package com.xiaoruiit.knowledge.point.multithread;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @date 2022/7/6
  */
 @Slf4j
+@Component
 public class MultiThreadPartialCalls {
 
     @Autowired

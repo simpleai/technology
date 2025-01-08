@@ -14,5 +14,8 @@
             (#{entity.userCode})
         </foreach>
     </insert>
+    <select id="query" resultType="com.xiaoruiit.knowledge.point.mybatis.domain.User">
+        select * from t_user
+    </select>
 </mapper>
 

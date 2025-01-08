@@ -2,10 +2,6 @@ package com.xiaoruiit.knowledge.point.mybatis;
 
 import com.xiaoruiit.common.utils.JSON;
 import com.xiaoruiit.knowledge.point.KnowledgePointApplication;
-import com.xiaoruiit.knowledge.point.multidatasource.datasource.domain.Datasource;
-import com.xiaoruiit.knowledge.point.multidatasource.datasource.mapper.DatasourceMapper;
-import com.xiaoruiit.knowledge.point.multidatasource.datasource2.domain.Datasource2;
-import com.xiaoruiit.knowledge.point.multidatasource.datasource2.mapper.Datasource2Mapper;
 import com.xiaoruiit.knowledge.point.mybatis.domain.User;
 import com.xiaoruiit.knowledge.point.mybatis.mapper.UserMapper;
 import com.xiaoruiit.knowledge.point.mybatis.service.UserService;
@@ -40,6 +36,14 @@ class BatchInsertThenGetIdsSourceTest {
         userMapper.batchInsert(users);
 
         log.warn(JSON.toJSONString(users));
+    }
+
+    @Test
+    void queryUser() {
+
+        List<User> query = userMapper.query();
+
+        log.warn(JSON.toJSONString(query));
     }
 
     @Resource

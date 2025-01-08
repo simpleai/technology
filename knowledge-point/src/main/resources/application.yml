@@ -101,7 +101,7 @@ spring:
   datasource3:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/datasource2?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
     username: root
     password: 123456
     druid:
@@ -144,5 +144,14 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+
+# MyBatis配置
 mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.xiaoruiit.knowledge.point.mybatis.domain
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath:mapper/**/*Mapper.xml,classpath:common-mapper/**/*Mapper.xml
+  # 加载全局的配置文件
   configLocation: classpath:mybatis/mybatis-config.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志

@@ -16,4 +16,5 @@ public interface UserMapper {
      * 不能用@Param，或者只能是@Param("list")
      */
     void batchInsert(List<User> user);
+    List<User> query();
 }
