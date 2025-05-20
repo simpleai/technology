@@ -1,5 +1,6 @@
 package com.xiaoruiit.knowledge.point.multithread.createOrder;
 
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,11 +25,28 @@ public class MultiQuery {
     public CompletableFuture<Map<String, MaterialInfo>> getMaterialBySkuCodes(List<String> skuCodes) {
         // todo skuCodes分批
         return CompletableFuture.supplyAsync(() -> {
-            Map<String, MaterialInfo> materialInfoMap = new HashMap<>();
-            for (String sku : skuCodes) {
-                materialInfoMap.put(sku, new MaterialInfo(sku, "MaterialName-" + sku));
+
+            List<List<String>> partition = Lists.partition(skuCodes, 5);
+            List<CompletableFuture<Map<String, MaterialInfo>>> result = new ArrayList<>();
+            for (List<String> childSkuCodes : partition) {
+                CompletableFuture<Map<String, MaterialInfo>> mapCompletableFuture = CompletableFuture.supplyAsync(() -> {
+                    Map<String, MaterialInfo> materialInfoMap = new HashMap<>();
+                    for (String sku : childSkuCodes) {
+                        materialInfoMap.put(sku, new MaterialInfo(sku, "MaterialName-" + sku));
+                    }
+                    return materialInfoMap;
+                }, threadPool);
+
+                result.add(mapCompletableFuture);
             }
-            return materialInfoMap;
+
+            CompletableFuture.allOf(result.toArray(new CompletableFuture[0])).join();
+            try {
+                return result.stream().map(CompletableFuture::join).flatMap(map -> map.values().stream()).collect(Collectors.toMap(MaterialInfo::getSkuCode, info -> info));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
         }, threadPool);
     }
 
