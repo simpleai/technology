@@ -1,4 +1,4 @@
-package com.xiaoruiit.knowledge.point.preventingDuplicates.handler;
+package com.xiaoruiit.knowledge.point.preventingDuplicates.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
