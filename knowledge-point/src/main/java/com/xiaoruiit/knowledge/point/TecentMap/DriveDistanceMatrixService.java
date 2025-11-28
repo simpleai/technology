@@ -1,6 +1,6 @@
 package com.xiaoruiit.knowledge.point.TecentMap;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.xiaoruiit.common.domain.BizException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -39,7 +39,7 @@ public class DriveDistanceMatrixService {
 
         log.info("request com.xiaoruiit.knowledge.point.TecentMap.DistanceMatrixFeignClient.getDistanceMatrix:{},{},{},{},{}",distanceMatrix.getKey(), distanceMatrix.getMode(), distanceMatrix.getFrom(), distanceMatrix.getTo(), sig);
         TencentMapsResult<DistanceMatrixResult> distanceMatrixResult = feignClient.getDistanceMatrix(distanceMatrix.getKey(), distanceMatrix.getMode(), distanceMatrix.getFrom(), distanceMatrix.getTo(), sig);
-        log.info("response com.xiaoruiit.knowledge.point.TecentMap.DistanceMatrixFeignClient.getDistanceMatrix:{}",JSON.toJSONString(distanceMatrixResult));
+        log.info("response com.xiaoruiit.knowledge.point.TecentMap.DistanceMatrixFeignClient.getDistanceMatrix:{}", JSON.toJSONString(distanceMatrixResult));
         if (!distanceMatrixResult.isSuccess()) {
             throw new BizException("地图接口返回报错:" + distanceMatrixResult.getMessage());
         }

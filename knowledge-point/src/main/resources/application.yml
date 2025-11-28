@@ -6,6 +6,9 @@ spring:
     name: knowledge-point
   profiles:
     active: "@profileActive@"
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # 适配 Swagger 2.x（Knife4j 3.0.x 依赖）
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -155,6 +158,18 @@ mybatis:
   configLocation: classpath:mybatis/mybatis-config.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+
+# Knife4j 自定义配置（可选）
+knife4j:
+  enable: true # 启用 Knife4j（默认 true）
+  openapi:
+    title: XX项目接口文档
+    description: 接口文档说明
+    version: 1.0.0
+  setting:
+    language: zh-CN # 界面语言（中文）
+    enable-swagger-models: true # 显示 Model 列表
+    swagger-model-name: 数据模型 # Model 列表标题
 
 # 动态线程池
 thread-pools:
