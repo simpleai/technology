@@ -22,7 +22,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
          * 调拨防重
          * @see TestController#add(String)
          */
-        registry.addInterceptor(requestOnceInterceptor).addPathPatterns("/api/transfer/add");
+        registry.addInterceptor(requestOnceInterceptor).addPathPatterns("/api/pre/add2");
     }
 
     @Override
