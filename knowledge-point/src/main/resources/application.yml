@@ -155,3 +155,13 @@ mybatis:
   configLocation: classpath:mybatis/mybatis-config.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+
+# 动态线程池
+thread-pools:
+  configs:
+    defaultPool:
+      corePoolSize: 1
+      maxPoolSize: 1
+      queueCapacity: 0
+      keepAliveTime: 60
+      rejectedPolicy: CallerRunsPolicy
